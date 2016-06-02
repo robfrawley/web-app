@@ -1,0 +1,29 @@
+
+##
+## This file is part of the `src-run/web-app` project
+##
+## (c) Rob Frawley 2nd <rmf@src.run>
+##
+## For the full copyright and license information, please view the LICENSE.md
+## file that was distributed with this source code.
+##
+
+/app/config/parameters.yml
+/build/
+/phpunit.xml
+/var/*
+!/var/cache
+/var/cache/*
+!var/cache/.gitkeep
+!/var/logs
+/var/logs/*
+!var/logs/.gitkeep
+!/var/sessions
+/var/sessions/*
+!var/sessions/.gitkeep
+!var/SymfonyRequirements.php
+/vendor/
+/web/bundles/
+/.idea/
+
+## EOF

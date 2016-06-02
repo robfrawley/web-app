@@ -1,0 +1,115 @@
+---
+
+##
+## This file is part of the `src-run/web-app` project
+##
+## (c) Rob Frawley 2nd <rmf@src.run>
+##
+## For the full copyright and license information, please view the LICENSE.md
+## file that was distributed with this source code.
+##
+
+## Server Deployment Configuration Definition
+## [1] environment:LOCAL, [2] stage:PROD
+local-prod :
+  local         : true
+  host          : "localhost"
+  user          : rmf
+  identity_file :
+    public_key  : "~/ssh/id_rsa.pub"
+    private_key : "~/ssh/id_rsa"
+  stage         : prod
+  deploy_path   : /www/src-run-web-app/
+
+## Server Deployment Configuration Definition
+## [1] environment:LOCAL, [2] stage:DEV
+local-dev :
+  local         : true
+  host          : "localhost"
+  user          : rmf
+  identity_file :
+    public_key  : "~/ssh/id_rsa.pub"
+    private_key : "~/ssh/id_rsa"
+  stage         : dev
+  deploy_path   : /www/src-run-web-app/
+
+## Server Deployment Configuration Definition
+## [1] environment:LOCAL, [2] stage:TEST
+local-test :
+  local         : true
+  host          : "localhost"
+  user          : rmf
+  identity_file :
+    public_key  : "~/ssh/id_rsa.pub"
+    private_key : "~/ssh/id_rsa"
+  stage         : test
+  deploy_path   : /www/src-run-web-app/
+
+## Server Deployment Configuration Definition
+## [1] environment:REMOTE, [2] stage:PROD
+remote-a-prod :
+  host          : "deploy-remote-a.src.run"
+  user          : www-data
+  identity_file :
+    public_key  : "~/ssh/id_rsa.pub"
+    private_key : "~/ssh/id_rsa"
+  stage         : dev
+  deploy_path   : /www/src-run-web-app/
+
+## Server Deployment Configuration Definition
+## [1] environment:REMOTE, [2] stage:DEV
+remote-a-dev :
+  host          : "deploy-remote-a.src.run"
+  user          : www-data
+  identity_file :
+    public_key  : "~/ssh/id_rsa.pub"
+    private_key : "~/ssh/id_rsa"
+  stage         : dev
+  deploy_path   : /www/src-run-web-app/
+
+## Server Deployment Configuration Definition
+## [1] environment:REMOTE, [2] stage:TEST
+remote-a-test :
+  host          : "deploy-remote-a.src.run"
+  user          : www-data
+  identity_file :
+    public_key  : "~/ssh/id_rsa.pub"
+    private_key : "~/ssh/id_rsa"
+  stage         : dev
+  deploy_path   : /www/src-run-web-app/
+
+## Server Deployment Configuration Definition
+## [1] environment:REMOTE, [2] stage:PROD
+remote-b-prod :
+  host          : "deploy-remote-b.src.run"
+  user          : www-data
+  identity_file :
+    public_key  : "~/ssh/id_rsa.pub"
+    private_key : "~/ssh/id_rsa"
+  stage         : dev
+  deploy_path   : /www/src-run-web-app/
+
+## Server Deployment Configuration Definition
+## [1] environment:REMOTE, [2] stage:DEV
+remote-b-dev :
+  host          : "deploy-remote-b.src.run"
+  user          : www-data
+  identity_file :
+    public_key  : "~/ssh/id_rsa.pub"
+    private_key : "~/ssh/id_rsa"
+  stage         : dev
+  deploy_path   : /www/src-run-web-app/
+
+## Server Deployment Configuration Definition
+## [1] environment:REMOTE, [2] stage:TEST
+remote-b-test :
+  host          : "deploy-remote-b.src.run"
+  user          : www-data
+  identity_file :
+    public_key  : "~/ssh/id_rsa.pub"
+    private_key : "~/ssh/id_rsa"
+  stage         : dev
+  deploy_path   : /www/src-run-web-app/
+
+# EOF
+...
