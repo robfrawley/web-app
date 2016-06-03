@@ -25,7 +25,8 @@ set('keep_releases', 12);
 set('composer_command', '/usr/local/bin/composer');
 set('shared_files', ['app/config/parameters.yml']);
 env('env_vars', 'SYMFONY_ENV={{env}}');
-env('composer_options', '--verbose --prefer-dist --optimize-autoloader --no-progress --no-interaction');
+env('console_more', '--no-interaction');
+env('composer_options', '--verbose --prefer-dist --no-progress');
 env('composer_options_prod', '--no-dev --optimize-autoloader');
 env('composer_options_dev', '--dev');
 set('assets', ['web/css', 'web/images', 'web/js']);
@@ -40,6 +41,12 @@ task('deploy:vendors', $taskDeployVendors)->desc('Installing vendors');
 
 # define assetic dump
 task('deploy:assetic:dump', $taskDeployAsseticDump)->desc('Skipping assetic dump');
+
+# define cache warming task
+task('deploy:cache:warmup', $deployCacheWarmup)->desc('Warm up cache');
+
+# define database migration task
+task('database:migrate', $databaseMigrate)->desc('Migrate database');
 
 # Run database migrations
 //after('deploy:vendors', 'database:migrate');

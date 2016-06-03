@@ -21,7 +21,7 @@ local_prod :
   stage         : prod-local
   env           : prod
   http_user     : rmf
-  php_fpm_ver   : 7.0
+  php_fpm_ver   : "7.0"
   deploy_path   : "/www/web-app/"
 
 ## Server Deployment Configuration Definition
@@ -36,7 +36,7 @@ local_dev :
   stage         : dev-local
   env           : dev
   http_user     : rmf
-  php_fpm_ver   : 7.0
+  php_fpm_ver   : "7.0"
   deploy_path   : "/www/web-app/"
 
 ## Server Deployment Configuration Definition
@@ -50,7 +50,7 @@ remote_prod :
   stage         : prod
   env           : prod
   http_user     : www-data
-  php_fpm_ver   : 5.6
+  php_fpm_ver   : "5.6"
   deploy_path   : "/www/web-app/"
 
 ## Server Deployment Configuration Definition
@@ -64,7 +64,7 @@ remote_dev :
   stage         : dev
   env           : dev
   http_user     : www-data
-  php_fpm_ver   : 5.6
+  php_fpm_ver   : "5.6"
   deploy_path   : "/www/web-app/"
 
 # EOF

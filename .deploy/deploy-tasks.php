@@ -13,24 +13,27 @@
 require_once DEPLOY_INC_RECIPE;
 
 $taskReloadPhpFpm = function () {
-    if (!askConfirmation('Restart PHP-FPM?', true)) {
-        return;
-    }
-
-    writeln(sprintf('Selected <info>php%s-fpm</info> service', get('php_fpm_ver')));
+    run('sudo /usr/sbin/service php{{php_fpm_ver}}-fpm reload');
 };
 
 $taskDeployVendors = function () {
-    $composer = env('bin/composer');
     $envVars = env('env_vars') ? 'export ' . env('env_vars') . ' &&' : '';
-    $moreOptions = env('env') === 'dev' ? env('composer_options_dev') : env('composer_options_prod');
+    $options = env('env') === 'dev' ? env('composer_options_dev') : env('composer_options_prod');
     $action = env('env') === 'dev' ? 'update' : 'install';
 
-    run("cd {{release_path}} && $envVars $composer $action {{composer_options}} $moreOptions");
+    run(sprintf('cd {{release_path}} && %s {{bin/composer}} %s {{composer_options}} %s {{console_more}}', $envVars, $action, $options));
 };
 
 $taskDeployAsseticDump = function() {
     /* overwrite with empty closure to disable */
+};
+
+$deployCacheWarmup = function () {
+    run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console cache:warmup  --env={{env}} {{console_more}}');
+};
+
+$databaseMigrate = function () {
+    run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console doctrine:migrations:migrate --env={{env}} {{console_more}}');
 };
 
 /* EOG */
