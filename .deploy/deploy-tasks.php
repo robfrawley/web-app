@@ -36,4 +36,21 @@ $databaseMigrate = function () {
     run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console doctrine:migrations:migrate --env={{env}} {{console_more}}');
 };
 
+$deploySharedFixtures = function() {
+    $server = env('server');
+
+    if (null === $name = isset($server['name']) ? $server['name'] : null) {
+        return;
+    }
+
+    $parameterFile = sprintf('%s/../app/config/parameters.%s.yml', __DIR__, $name);
+
+    if (!file_exists($parameterFile)) {
+        writeln(sprintf('<comment>Warning:</comment> Could not find parameters file for server name at "%s".', $parameterFile));
+        return;
+    }
+
+    upload($parameterFile, '{{deploy_path}}/shared/app/config/parameters.yml');
+};
+
 /* EOG */

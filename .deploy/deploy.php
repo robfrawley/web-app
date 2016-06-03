@@ -51,8 +51,10 @@ task('deploy:cache:warmup', $deployCacheWarmup)->desc('Warm up cache');
 
 # define database migration task
 task('database:migrate', $databaseMigrate)->desc('Migrate database');
-
-# Run database migrations
 //after('deploy:vendors', 'database:migrate');
+
+# define shared fixtures task
+task('deploy:shared:fixtures', $deploySharedFixtures)->desc('Deploying shared fixtures');
+after('deploy:shared', 'deploy:shared:fixtures');
 
 /* EOF */

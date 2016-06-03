@@ -20,6 +20,7 @@ local_prod :
   env           : prod
   http_user     : rmf
   php_fpm_ver   : "7.0"
+  branch        : master
   deploy_path   : "/www/web-app/"
 
 ## Server Deployment Configuration Definition
@@ -33,6 +34,7 @@ local_dev :
   env           : dev
   http_user     : rmf
   php_fpm_ver   : "7.0"
+  branch        : master
   deploy_path   : "/www/web-app/"
 
 ## Server Deployment Configuration Definition
@@ -45,6 +47,7 @@ remote_prod :
   env           : prod
   http_user     : www-data
   php_fpm_ver   : "5.6"
+  branch        : master
   deploy_path   : "/www/web-app/"
 
 ## Server Deployment Configuration Definition
@@ -57,6 +60,7 @@ remote_dev :
   env           : dev
   http_user     : www-data
   php_fpm_ver   : "5.6"
+  branch        : master
   deploy_path   : "/www/web-app/"
 
 # EOF
