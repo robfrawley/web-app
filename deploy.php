@@ -21,6 +21,9 @@ define('DEPLOY_INC_SERVERS', __DIR__ . '/.deploy/deploy-servers.yml');
 # define path to the base recipe to build off of
 define('DEPLOY_INC_RECIPE', __DIR__ . '/vendor/deployer/deployer/recipe/symfony3.php');
 
+# define path to composer autoloader
+define('COMPOSER_INC_AUTOLOAD', __DIR__ . '/vendor/autoload.php');
+
 /**
  * @param string  $message
  * @param mixed[] ...$replacements

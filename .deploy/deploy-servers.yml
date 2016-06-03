@@ -15,9 +15,7 @@ local_prod :
   local         : true
   host          : "localhost"
   user          : rmf
-  identity_file :
-    public_key  : "~/ssh/id_rsa.pub"
-    private_key : "~/ssh/id_rsa"
+  identity_file : ~
   stage         : prod-local
   env           : prod
   http_user     : rmf
@@ -30,9 +28,7 @@ local_dev :
   local         : true
   host          : "localhost"
   user          : rmf
-  identity_file :
-    public_key  : "~/ssh/id_rsa.pub"
-    private_key : "~/ssh/id_rsa"
+  identity_file : ~
   stage         : dev-local
   env           : dev
   http_user     : rmf
@@ -44,9 +40,7 @@ local_dev :
 remote_prod :
   host          : "src.run"
   user          : rmf
-  identity_file :
-    public_key  : "~/ssh/id_rsa.pub"
-    private_key : "~/ssh/id_rsa"
+  identity_file : ~
   stage         : prod
   env           : prod
   http_user     : www-data
@@ -58,9 +52,7 @@ remote_prod :
 remote_dev :
   host          : "src.run"
   user          : rmf
-  identity_file :
-    public_key  : "~/ssh/id_rsa.pub"
-    private_key : "~/ssh/id_rsa"
+  identity_file : ~
   stage         : dev
   env           : dev
   http_user     : www-data

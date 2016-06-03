@@ -9,6 +9,9 @@
  * file that was distributed with this source code.
  */
 
+# include the composer autoloader
+require_once COMPOSER_INC_AUTOLOAD;
+
 # include the deploy base-recipe
 require_once DEPLOY_INC_RECIPE;
 
@@ -24,6 +27,7 @@ set('repository', 'git@github.com:src-run/web-app.git');
 set('keep_releases', 12);
 set('composer_command', '/usr/local/bin/composer');
 set('shared_files', ['app/config/parameters.yml']);
+set('ssh_type', 'ext-ssh2');
 env('env_vars', 'SYMFONY_ENV={{env}}');
 env('console_more', '--no-interaction');
 env('composer_options', '--verbose --prefer-dist --no-progress');
