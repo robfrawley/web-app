@@ -1,0 +1,71 @@
+---
+
+##
+## This file is part of the `src-run/web-app` project
+##
+## (c) Rob Frawley 2nd <rmf@src.run>
+##
+## For the full copyright and license information, please view the LICENSE.md
+## file that was distributed with this source code.
+##
+
+## Server Deployment Configuration Definition
+## [1] environment:LOCAL, [2] stage:PROD
+local_prod :
+  local         : true
+  host          : "localhost"
+  user          : rmf
+  identity_file :
+    public_key  : "~/ssh/id_rsa.pub"
+    private_key : "~/ssh/id_rsa"
+  stage         : prod-local
+  env           : prod
+  http_user     : rmf
+  php_fpm_ver   : 7.0
+  deploy_path   : "/www/web-app/"
+
+## Server Deployment Configuration Definition
+## [1] environment:LOCAL, [2] stage:DEV
+local_dev :
+  local         : true
+  host          : "localhost"
+  user          : rmf
+  identity_file :
+    public_key  : "~/ssh/id_rsa.pub"
+    private_key : "~/ssh/id_rsa"
+  stage         : dev-local
+  env           : dev
+  http_user     : rmf
+  php_fpm_ver   : 7.0
+  deploy_path   : "/www/web-app/"
+
+## Server Deployment Configuration Definition
+## [1] environment:REMOTE, [2] stage:PROD
+remote_prod :
+  host          : "src.run"
+  user          : rmf
+  identity_file :
+    public_key  : "~/ssh/id_rsa.pub"
+    private_key : "~/ssh/id_rsa"
+  stage         : prod
+  env           : prod
+  http_user     : www-data
+  php_fpm_ver   : 5.6
+  deploy_path   : "/www/web-app/"
+
+## Server Deployment Configuration Definition
+## [1] environment:REMOTE, [2] stage:DEV
+remote_dev :
+  host          : "src.run"
+  user          : rmf
+  identity_file :
+    public_key  : "~/ssh/id_rsa.pub"
+    private_key : "~/ssh/id_rsa"
+  stage         : dev
+  env           : dev
+  http_user     : www-data
+  php_fpm_ver   : 5.6
+  deploy_path   : "/www/web-app/"
+
+# EOF
+...

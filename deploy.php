@@ -9,50 +9,32 @@
  * file that was distributed with this source code.
  */
 
-require 'recipe/symfony3.php';
+# define path to the REAL deplay php file
+define('DEPLOY_INC_REAL', __DIR__.'/.deploy/deploy.php');
 
-// Default stage to build
-//set('default_stage', 'staging');
+# define path to custom task method implementations
+define('DEPLOY_INC_TASKS', __DIR__.'/.deploy/deploy-tasks.php');
 
-// Import server definitions
-serverList(__DIR__.'/.deploy-servers.yml');
+# define path to yaml server list configuration
+define('DEPLOY_INC_SERVERS', __DIR__ . '/.deploy/deploy-servers.yml');
 
-// Repository to pull from
-set('repository', 'git@github.com:src-run/web-app.git');
+# define path to the base recipe to build off of
+define('DEPLOY_INC_RECIPE', __DIR__ . '/vendor/deployer/deployer/recipe/symfony3.php');
 
-// Define task to reload PHP-FPM server
-task('reload:php-fpm', function () {
-    run('sudo /usr/sbin/service php5-fpm reload');
-});
+/**
+ * @param string  $message
+ * @param mixed[] ...$replacements
+ */
+function writeEr($message, ...$replacements)
+{
+    fwrite(STDERR, sprintf($message, ...$replacements));
+    exit (255);
+}
 
-// After the deploy stage, reload call PHP-FPM reload task
-after('deploy', 'reload:php-fpm');
+if (!file_exists(DEPLOY_INC_REAL)) {
+    writeEr('Could not locate the REAL deploy PHP file. Expected to find it at "%s".', DEPLOY_INC_REAL);
+}
 
-// Symfony shared files/dir and writable dirs
-set('shared_files', ['app/config/parameters.yml']);
-set('shared_dirs', ['app/logs']);
-set('writable_dirs', ['var/cache', 'var/logs', 'var/sessions']);
-
-// Assets
-//set('assets', ['web/css', 'web/images', 'web/js']);
-task('deploy:assetic:dump', function() {
-
-});
-
-// Webserver user
-set('http_user', 'rmf');
-
-// Path to composer executable
-set('composer_command', '/usr/local/bin/composer');
-
-// Keep 12 releases in history
-set('keep_releases', 12);
-
-// Environment vars
-env('env_vars', 'SYMFONY_ENV=prod');
-env('env', 'prod');
-
-// Run DB migrations after deploying vendors
-//after('deploy:vendors', 'database:migrate');
+require_once DEPLOY_INC_REAL;
 
 /* EOF */
