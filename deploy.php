@@ -10,13 +10,13 @@
  */
 
 # define path to the REAL deplay php file
-define('DEPLOY_INC_REAL', __DIR__.'/.deploy/deploy.php');
+define('DEPLOY_INC_CONFIG', __DIR__ . '/.deploy/config.php');
 
 # define path to custom task method implementations
-define('DEPLOY_INC_TASKS', __DIR__.'/.deploy/deploy-tasks.php');
+define('DEPLOY_INC_TASKS', __DIR__ . '/.deploy/tasks.php');
 
 # define path to yaml server list configuration
-define('DEPLOY_INC_SERVERS', __DIR__ . '/.deploy/deploy-servers.yml');
+define('DEPLOY_INC_SERVERS', __DIR__ . '/.deploy/servers.yml');
 
 # define path to the base recipe to build off of
 define('DEPLOY_INC_RECIPE', __DIR__ . '/vendor/deployer/deployer/recipe/symfony3.php');
@@ -25,19 +25,19 @@ define('DEPLOY_INC_RECIPE', __DIR__ . '/vendor/deployer/deployer/recipe/symfony3
 define('COMPOSER_INC_AUTOLOAD', __DIR__ . '/vendor/autoload.php');
 
 /**
- * @param string  $message
- * @param mixed[] ...$replacements
+ * @param string $filePath
  */
-function writeEr($message, ...$replacements)
+function requireDeployInclude($filePath)
 {
-    fwrite(STDERR, sprintf($message, ...$replacements));
-    exit (255);
+    if (!file_exists($filePath)) {
+        fwrite(STDERR, sprintf('Could not locate required deploy file include: %s.', $filePath));
+        exit (255);
+    }
+
+    require_once $filePath;
 }
 
-if (!file_exists(DEPLOY_INC_REAL)) {
-    writeEr('Could not locate the REAL deploy PHP file. Expected to find it at "%s".', DEPLOY_INC_REAL);
-}
-
-require_once DEPLOY_INC_REAL;
+# include deploy configuration root
+requireDeployInclude(DEPLOY_INC_CONFIG);
 
 /* EOF */
