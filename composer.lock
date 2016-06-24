@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "67c8936caaf86e718e5925a6f8287d6b",
-    "content-hash": "789949dd05613e6d2f3c483f52e9b141",
+    "hash": "adcb0d8ad1632d6b4bc9934fc5204984",
+    "content-hash": "576a6c9abbd401ada84ccafc256e2da7",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -932,42 +932,6 @@
             "time": "2016-02-02 18:50:42"
         },
         {
-            "name": "google/flatbuffers",
-            "version": "v1.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/google/flatbuffers.git",
-                "reference": "38662548c74f8c844ca30c99f5753cd8309b2d08"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/google/flatbuffers/zipball/38662548c74f8c844ca30c99f5753cd8309b2d08",
-                "reference": "38662548c74f8c844ca30c99f5753cd8309b2d08",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Google\\FlatBuffers\\": "php"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "description": "FlatBuffers for PHP",
-            "homepage": "https://github.com/google/flatbuffers",
-            "keywords": [
-                "flatbuffers",
-                "google",
-                "serialization"
-            ],
-            "time": "2016-02-03 18:52:33"
-        },
-        {
             "name": "incenteev/composer-parameter-handler",
             "version": "v2.1.2",
             "source": {
@@ -1481,10 +1445,11 @@
         {
             "name": "src-run/augustus-deprecation-library",
             "version": "dev-master",
-            "source": {
-                "type": "git",
+            "dist": {
+                "type": "path",
                 "url": "/home/rmf/code/composer/augustus-deprecation-library",
-                "reference": "401dc0b7bd8dd937580d241fa2428e1949a6e763"
+                "reference": "401dc0b7bd8dd937580d241fa2428e1949a6e763",
+                "shasum": null
             },
             "require": {
                 "php": "^5.6||^7.0",
@@ -1537,15 +1502,18 @@
                 "issues": "https://src.run/augustus-deprecation-library/issues",
                 "source": "https://src.run/augustus-deprecation-library/git"
             },
-            "time": "2016-05-03 11:50:24"
+            "transport-options": {
+                "symlink": false
+            }
         },
         {
             "name": "src-run/augustus-exception-library",
             "version": "dev-master",
-            "source": {
-                "type": "git",
+            "dist": {
+                "type": "path",
                 "url": "/home/rmf/code/composer/augustus-exception-library",
-                "reference": "e7bda5e384e1a68a3da80945bfbd9cf226d825f4"
+                "reference": "e7bda5e384e1a68a3da80945bfbd9cf226d825f4",
+                "shasum": null
             },
             "require": {
                 "php": "^5.6||^7.0",
@@ -1599,15 +1567,18 @@
                 "issues": "https://src.run/augustus-exception-library/issues",
                 "source": "https://src.run/augustus-exception-library/git"
             },
-            "time": "2016-04-30 09:46:55"
+            "transport-options": {
+                "symlink": false
+            }
         },
         {
             "name": "src-run/augustus-library",
             "version": "dev-master",
-            "source": {
-                "type": "git",
+            "dist": {
+                "type": "path",
                 "url": "/home/rmf/code/composer/augustus-library",
-                "reference": "37c0cdcfa38a9514dfa978f179e2ca7c1253ba53"
+                "reference": "560231fd44756cf20abed06b841c7074fbbd47a7",
+                "shasum": null
             },
             "require": {
                 "php": "^5.6||^7.0",
@@ -1616,6 +1587,7 @@
                 "src-run/augustus-polyfill-library": "self.version",
                 "src-run/augustus-primitive-library": "self.version",
                 "src-run/augustus-reflection-library": "self.version",
+                "src-run/augustus-serializer-library": "self.version",
                 "src-run/augustus-utility-library": "self.version"
             },
             "type": "metapackage",
@@ -1649,15 +1621,18 @@
                 "issues": "https://src.run/augustus-library/issues",
                 "source": "https://src.run/augustus-library/git"
             },
-            "time": "2016-04-30 10:23:01"
+            "transport-options": {
+                "symlink": false
+            }
         },
         {
             "name": "src-run/augustus-polyfill-library",
             "version": "dev-master",
-            "source": {
-                "type": "git",
+            "dist": {
+                "type": "path",
                 "url": "/home/rmf/code/composer/augustus-polyfill-library",
-                "reference": "8aeee98e5245127ebbdf67c27a81549f1e0606ea"
+                "reference": "8aeee98e5245127ebbdf67c27a81549f1e0606ea",
+                "shasum": null
             },
             "require": {
                 "paragonie/random_compat": "^2.0",
@@ -1724,15 +1699,18 @@
                 "issues": "https://src.run/augustus-polyfill-library/issues",
                 "source": "https://src.run/augustus-polyfill-library/git"
             },
-            "time": "2016-05-03 21:02:12"
+            "transport-options": {
+                "symlink": false
+            }
         },
         {
             "name": "src-run/augustus-primitive-library",
             "version": "dev-master",
-            "source": {
-                "type": "git",
+            "dist": {
+                "type": "path",
                 "url": "/home/rmf/code/composer/augustus-primitive-library",
-                "reference": "6e58f0e1afbb992fb80e2da2e3d0982ed9acd910"
+                "reference": "6e58f0e1afbb992fb80e2da2e3d0982ed9acd910",
+                "shasum": null
             },
             "require": {
                 "php": "^5.6||^7.0"
@@ -1785,15 +1763,18 @@
                 "source": "https://src.run/augustus-primitive-library/git",
                 "issues": "https://src.run/augustus-primitive-library/issues"
             },
-            "time": "2016-04-30 09:47:14"
+            "transport-options": {
+                "symlink": false
+            }
         },
         {
             "name": "src-run/augustus-reflection-library",
             "version": "dev-master",
-            "source": {
-                "type": "git",
+            "dist": {
+                "type": "path",
                 "url": "/home/rmf/code/composer/augustus-reflection-library",
-                "reference": "c81889210131b3f817a4f2f9a13721c35a416a14"
+                "reference": "c81889210131b3f817a4f2f9a13721c35a416a14",
+                "shasum": null
             },
             "require": {
                 "php": "^5.6||^7.0",
@@ -1847,15 +1828,82 @@
                 "source": "https://src.run/augustus-reflection-library/git",
                 "issues": "https://src.run/augustus-reflection-library/issues"
             },
-            "time": "2016-05-19 21:19:07"
+            "transport-options": {
+                "symlink": false
+            }
+        },
+        {
+            "name": "src-run/augustus-serializer-library",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "/home/rmf/code/composer/augustus-serializer-library",
+                "reference": "e8518d983dcaec60f946a1da3536740492f256b3",
+                "shasum": null
+            },
+            "require": {
+                "php": "^5.6||^7.0",
+                "src-run/augustus-exception-library": "^0.6"
+            },
+            "require-dev": {
+                "codacy/coverage": "^1.0",
+                "phpunit/phpunit": "^5.0",
+                "satooshi/php-coveralls": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "SR\\Serializer\\": "lib/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "SR\\Serializer\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rob Frawley 2nd",
+                    "email": "rmf@src.run",
+                    "homepage": "https://src.run/rmf",
+                    "role": "Project Lead"
+                }
+            ],
+            "description": "simple abstraction on serialize functions with support for php- json- and igbinary-based serialization",
+            "homepage": "https://src.run/augustus-serializer-library",
+            "keywords": [
+                "augustus",
+                "augustus-serializer-library",
+                "library",
+                "rmf",
+                "serializer",
+                "src-run"
+            ],
+            "support": {
+                "email": "rmf@src.run",
+                "issues": "https://src.run/augustus-serializer-library/issues",
+                "source": "https://src.run/augustus-serializer-library/git"
+            },
+            "transport-options": {
+                "symlink": false
+            }
         },
         {
             "name": "src-run/augustus-utility-library",
             "version": "dev-master",
-            "source": {
-                "type": "git",
+            "dist": {
+                "type": "path",
                 "url": "/home/rmf/code/composer/augustus-utility-library",
-                "reference": "14b694d34d14fbe7985cbd0b521b3b6ddeb0c354"
+                "reference": "14b694d34d14fbe7985cbd0b521b3b6ddeb0c354",
+                "shasum": null
             },
             "require": {
                 "php": "^5.6||^7.0",
@@ -1908,7 +1956,9 @@
                 "source": "https://src.run/augustus-utility-library/git",
                 "issues": "https://src.run/augustus-utility-library/issues"
             },
-            "time": "2016-05-03 06:35:26"
+            "transport-options": {
+                "symlink": false
+            }
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3461,16 +3511,16 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "2.0.1",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "ba6fb78f727cd09f2a649113b95468019e490585"
+                "reference": "3d265f7c079f5b37d33475f996d7a383c5fc8aeb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/ba6fb78f727cd09f2a649113b95468019e490585",
-                "reference": "ba6fb78f727cd09f2a649113b95468019e490585",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/3d265f7c079f5b37d33475f996d7a383c5fc8aeb",
+                "reference": "3d265f7c079f5b37d33475f996d7a383c5fc8aeb",
                 "shasum": ""
             },
             "require": {
@@ -3490,6 +3540,9 @@
             },
             "type": "library",
             "autoload": {
+                "files": [
+                    "phpseclib/bootstrap.php"
+                ],
                 "psr-4": {
                     "phpseclib\\": "phpseclib/"
                 }
@@ -3546,7 +3599,7 @@
                 "x.509",
                 "x509"
             ],
-            "time": "2016-01-18 17:07:21"
+            "time": "2016-05-13 01:15:21"
         },
         {
             "name": "psr/http-message",
@@ -4170,6 +4223,210 @@
             ],
             "description": "This bundle generates code for you",
             "time": "2016-02-26 04:36:01"
+        },
+        {
+            "name": "src-run/vermicious-console-io-library",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "/home/rmf/code/composer/vermicious-console-io-library",
+                "reference": "ba2fe6551e4a8b2cc32aaed860e6630ee1334678",
+                "shasum": null
+            },
+            "require": {
+                "php": "^5.6||^7.0",
+                "symfony/console": "^2.7||^2.8||^3.0"
+            },
+            "require-dev": {
+                "codacy/coverage": "^1.0",
+                "phpunit/phpunit": "^5.0",
+                "satooshi/php-coveralls": "^1.0",
+                "src-run/augustus-reflection-library": "^0.6",
+                "symfony/var-dumper": "^2.8||^3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "SR\\Console\\Style\\": "lib/Style/",
+                    "SR\\Console\\Input\\": "lib/Input/",
+                    "SR\\Console\\Output\\": "lib/Output/",
+                    "SR\\Console\\Std\\": "lib/Std/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "SR\\Console\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rob Frawley 2nd",
+                    "email": "rmf@src.run",
+                    "homepage": "https://src.run/rmf",
+                    "role": "Project Lead"
+                }
+            ],
+            "description": "basic set of Symfony console Input/Output/Style implementations",
+            "homepage": "https://src.run/vermicious-console-io-library",
+            "keywords": [
+                "console",
+                "io",
+                "library",
+                "rmf",
+                "src-run",
+                "vermicious",
+                "vermicious-console-io-library"
+            ],
+            "support": {
+                "email": "rmf@src.run",
+                "issues": "https://src.run/vermicious-console-io-library/issues",
+                "source": "https://src.run/vermicious-console-io-library/git"
+            }
+        },
+        {
+            "name": "src-run/vermicious-deploy-library",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "/home/rmf/code/composer/vermicious-deploy-library",
+                "reference": "2fbf89ba17c1c692a6646831a268ba1ed03e22a8",
+                "shasum": null
+            },
+            "require": {
+                "deployer/deployer": "^3.3",
+                "herzult/php-ssh": "^1.1",
+                "php": "^5.6||^7.0",
+                "src-run/augustus-exception-library": "^0.6",
+                "src-run/augustus-reflection-library": "^0.6",
+                "src-run/augustus-utility-library": "^0.6",
+                "src-run/vermicious-console-io-library": "^0.1",
+                "src-run/vermicious-environment-library": "^0.6"
+            },
+            "require-dev": {
+                "codacy/coverage": "^1.0",
+                "phpunit/phpunit": "^5.0",
+                "satooshi/php-coveralls": "^1.0"
+            },
+            "bin": [
+                "bin/deploy"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "SR\\Deployer\\": "lib/"
+                },
+                "files": [
+                    "lib/stub/functions.php"
+                ]
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "SR\\Deployer\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rob Frawley 2nd",
+                    "email": "rmf@src.run",
+                    "homepage": "https://src.run/rmf",
+                    "role": "Project Lead"
+                }
+            ],
+            "description": "extension to deployer framework",
+            "homepage": "https://src.run/vermicious-deploy-library",
+            "keywords": [
+                "deploy",
+                "library",
+                "rmf",
+                "silex",
+                "src-run",
+                "symfony",
+                "vermicious",
+                "vermicious-deploy-library"
+            ],
+            "support": {
+                "email": "rmf@src.run",
+                "issues": "https://src.run/vermicious-deploy-library/issues",
+                "source": "https://src.run/vermicious-deploy-library/git"
+            }
+        },
+        {
+            "name": "src-run/vermicious-environment-library",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "/home/rmf/code/composer/vermicious-environment-library",
+                "reference": "90b7a980d4456ce9c86b9af4ec667d8acea03c01",
+                "shasum": null
+            },
+            "require": {
+                "php": "^5.6||^7.0",
+                "src-run/augustus-exception-library": "^0.6"
+            },
+            "require-dev": {
+                "codacy/coverage": "^1.0",
+                "fabpot/goutte": "^2.8||^3.0",
+                "phpunit/phpunit": "^5.0",
+                "satooshi/php-coveralls": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "SR\\Environment\\": "lib/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "SR\\Environment\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rob Frawley 2nd",
+                    "email": "rmf@src.run",
+                    "homepage": "https://src.run/rmf",
+                    "role": "Project Lead"
+                }
+            ],
+            "description": "collection of reflection wrapper objects and helprs to simplify common tasks",
+            "homepage": "https://src.run/vermicious-environment-library",
+            "keywords": [
+                "augustus",
+                "environment",
+                "library",
+                "rmf",
+                "src-run",
+                "vermicious-environment-library"
+            ],
+            "support": {
+                "email": "rmf@src.run",
+                "source": "https://src.run/vermicious-environment-library/git",
+                "issues": "https://src.run/vermicious-environment-library/issues"
+            }
         },
         {
             "name": "symfony/phpunit-bridge",

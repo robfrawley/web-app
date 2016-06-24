@@ -1,7 +1,6 @@
----
 
 ##
-## This file is part of the `src-run/web-app` project
+## This file is part of the `src-run/src-consulting` project
 ##
 ## (c) Rob Frawley 2nd <rmf@src.run>
 ##
@@ -9,8 +8,6 @@
 ## file that was distributed with this source code.
 ##
 
-## Server Deployment Configuration Definition
-## [1] environment:LOCAL, [2] stage:PROD
 local_prod :
   local         : true
   host          : "localhost"
@@ -21,10 +18,8 @@ local_prod :
   http_user     : rmf
   php_fpm_ver   : "7.0"
   branch        : master
-  deploy_path   : "/www/web-app/"
+  deploy_path   : "/www/src-consulting/"
 
-## Server Deployment Configuration Definition
-## [1] environment:LOCAL, [2] stage:DEV
 local_dev :
   local         : true
   host          : "localhost"
@@ -35,10 +30,8 @@ local_dev :
   http_user     : rmf
   php_fpm_ver   : "7.0"
   branch        : master
-  deploy_path   : "/www/web-app/"
+  deploy_path   : "/www/src-consulting/"
 
-## Server Deployment Configuration Definition
-## [1] environment:REMOTE, [2] stage:PROD
 remote_prod :
   host          : "src.run"
   user          : rmf
@@ -48,10 +41,8 @@ remote_prod :
   http_user     : www-data
   php_fpm_ver   : "5.6"
   branch        : master
-  deploy_path   : "/www/web-app/"
+  deploy_path   : "/www/src-consulting/"
 
-## Server Deployment Configuration Definition
-## [1] environment:REMOTE, [2] stage:DEV
 remote_dev :
   host          : "src.run"
   user          : rmf
@@ -61,7 +52,4 @@ remote_dev :
   http_user     : www-data
   php_fpm_ver   : "5.6"
   branch        : master
-  deploy_path   : "/www/web-app/"
-
-# EOF
-...
+  deploy_path   : "/www/src-consulting/"

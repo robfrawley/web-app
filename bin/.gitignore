@@ -1,0 +1,4 @@
+*
+!.gitignore
+!symfony_requirements
+!console
