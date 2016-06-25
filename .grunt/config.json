@@ -1,0 +1,33 @@
+{
+  "paths": {
+    "dist" : {
+      "js"   : "web/assets/dist/js/",
+      "less" : "web/assets/dist/css/"
+    },
+    "src" : {
+      "js"   : "web/assets/src/js/",
+      "less" : "web/assets/src/less/"
+    },
+    "bootstrap" : {
+      "js"   : "web/components/bootstrap/js/",
+      "less" : "web/components/bootstrap/less/"
+    },
+    "config" : {
+      "banner"             : ".grunt/config-banner.txt",
+      "commonjs-generator" : ".grunt/commonjs-generator.js"
+    }
+  },
+  "tasks": {
+    "autoprefixer": {
+      "browserList": [
+        "Android >= 4",
+        "Chrome >= 28",
+        "Firefox >= 40",
+        "Explorer >= 11",
+        "iOS >= 7",
+        "Opera >= 30",
+        "Safari >= 9"
+      ]
+    }
+  }
+}
