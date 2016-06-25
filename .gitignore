@@ -27,7 +27,7 @@
 /web/bundles/
 /.idea/
 node_modules/
-web/assets/dist/
+web/assets/compiled/
 web/components/
 
 ## EOF

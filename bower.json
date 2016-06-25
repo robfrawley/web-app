@@ -5,6 +5,7 @@
   "dependencies" : {
     "jquery"       : "~2.2",
     "bootstrap"    : "~3.3",
+    "twbs/bootstrap-sass" : "~3.3",
     "font-awesome" : "~4.6"
   }
 }

@@ -23,6 +23,7 @@ module.exports = function (grunt) {
   var path;
   var fs;
   var configJson;
+  var configValueMake;
   var configMake;
   var configPath;
   var configTask;
@@ -37,35 +38,54 @@ module.exports = function (grunt) {
     encoding: 'utf8'
   });
 
+  // Parse config value for sub-config keys.
+  configValueMake = function (c) {
+    var result = new RegExp('\\$\{([a-z\.]+)\}', 'i').exec(c);
+
+    if (!result || result.length < 2) {
+      return c;
+    }
+
+    return c.replace(new RegExp(RegExp.quote(result[0]), 'g'), configMake(undefined, result[1]));
+  };
+
   // Get compiled config value.
   configMake = function (section, index, post, pre) {
     var c = configJson;
 
-    index = section + '.' + index;
+    if (section) {
+      index = section + '.' + index;
+    }
+
     index.split('.').forEach(function (key) {
       c = c[key];
     });
 
-    if (pre) {
-      c = pre + c;
+    if (c instanceof Array) {
+      return c.map(function (v) {
+        return configValueMake(v);
+      });
     }
 
-    return post ? c + post : c;
+    if (pre)  { c = pre + c;  }
+    if (post) { c = c + post; }
+
+    return configValueMake(c);
   };
 
   // Get config path value.
   configPath = function (index, post, pre) {
-    return configMake('paths', index, post, pre).toString();
+    return configMake('paths', index, post, pre);
   };
 
   // Get config task value.
-  configTask = function (index, post) {
-    return configMake('tasks', index, post).toString();
+  configTask = function (index, post, pre) {
+    return configMake('tasks', index, post, pre);
   };
 
   // Get config file listing.
-  configList = function (index, post) {
-    return configMake('paths.buildFileList', index, post);
+  configList = function (index) {
+    return configMake('files', index);
   };
 
   // Project configuration.
@@ -76,14 +96,16 @@ module.exports = function (grunt) {
 
     // Get our banner from file.
     banner : function () {
-      return fs.readFileSync(configPath('config.banner')).toString();
+      return fs.readFileSync(configPath('config.banner-text')).toString();
     }(),
 
-    // Clean config.
+    // Clean distribution config.
     clean : {
-      dist : [
-        configPath('dist.less'),
-        configPath('dist.js')
+      js : [
+        configPath('out.js')
+      ],
+      css : [
+        configPath('out.css')
       ]
     },
 
@@ -122,13 +144,19 @@ module.exports = function (grunt) {
 
     // Dist comments removal.
     decomment : {
-      all : {
-        options : {
-          type : 'text'
-        },
+      options : {
+        type : 'text'
+      },
+      js : {
         src  : [
-          configPath('dist.js', '*.js'),
-          configPath('dist.less', '*.css')
+          configPath('out.js', '*.js')
+        ],
+        dest : './',
+        cwd  : './'
+      },
+      css : {
+        src  : [
+          configPath('out.css', '*.css')
         ],
         dest : './',
         cwd  : './'
@@ -137,16 +165,22 @@ module.exports = function (grunt) {
 
     // Dist file banner config.
     usebanner : {
-      all : {
-        options : {
-          position  : 'top',
-          banner    : '<%= banner %>',
-          linebreak : true
-        },
+      options : {
+        position  : 'top',
+        banner    : '<%= banner %>',
+        linebreak : true
+      },
+      js : {
         files : {
           src : [
-            configPath('dist.js', '*.js'),
-            configPath('dist.less', '*.css')
+            configPath('out.js',  '*.js')
+          ]
+        }
+      },
+      css : {
+        files : {
+          src : [
+            configPath('out.css', '*.css')
           ]
         }
       }
@@ -156,7 +190,7 @@ module.exports = function (grunt) {
     concat : {
       js : {
         src  : configList('js'),
-        dest : configPath('dist.js', '<%= pkg.name %>.js')
+        dest : configPath('out.js', '<%= pkg.name %>.js')
       }
     },
 
@@ -170,22 +204,24 @@ module.exports = function (grunt) {
       },
       js : {
         src  : '<%= concat.js.dest %>',
-        dest : configPath('dist.js', '<%= pkg.name %>.min.js')
+        dest : configPath('out.js', '<%= pkg.name %>.min.js')
       }
     },
 
-    // Less compilation task config.
-    less : {
+    // SCSS compilation task config.
+    sass: {
+      options : {
+        includePaths : [
+          configPath('src.scss'),
+          configPath('bs.scss')
+        ],
+        precision : 9,
+        sourceMap : true,
+        outFile   : configPath('out.css', '<%= pkg.name %>.css.map')
+      },
       all : {
-        options : {
-          strictMath        : true,
-          sourceMap         : true,
-          outputSourceFiles : true,
-          sourceMapURL      : '<%= pkg.name %>.css.map',
-          sourceMapFilename : configPath('dist.less', '<%= pkg.name %>.css.map')
-        },
-        src  : configPath('src.less', '<%= pkg.name %>.less'),
-        dest : configPath('dist.less', '<%= pkg.name %>.css')
+        src  : configPath('src.scss', '<%= pkg.name %>.scss'),
+        dest : configPath('out.css', '<%= pkg.name %>.css')
       }
     },
 
@@ -198,27 +234,21 @@ module.exports = function (grunt) {
         options : {
           map : true
         },
-        src : configPath('dist.less', '<%= pkg.name %>.css')
+        src : configPath('out.css', '<%= pkg.name %>.css')
       }
     },
 
-    // Csslint task config.
+    // Css lint task config.
     lesslint : {
       options : {
         csslint : {
-          csslintrc     : configPath('src.less', '.csslintrc'),
-          failOnWarning : false,
-          'fallback-colors': false
+          csslintrc         : configPath('src.scss', '.csslintrc'),
+          failOnWarning     : false,
+          'fallback-colors' : false
         }
       },
-      less : {
-        imports : [
-          configPath('src.less', '**/*.less')
-        ],
-        src     : configPath('dist.less', '<%= pkg.name %>.css')
-      },
       css : {
-        src : configPath('dist.less', '<%= pkg.name %>.css')
+        src : configPath('out.css', '<%= pkg.name %>.css')
       }
     },
 
@@ -231,67 +261,67 @@ module.exports = function (grunt) {
         advanced            : false
       },
       all : {
-        src  : configPath('dist.less', '<%= pkg.name %>.css'),
-        dest : configPath('dist.less', '<%= pkg.name %>.min.css')
+        src  : configPath('out.css', '<%= pkg.name %>.css'),
+        dest : configPath('out.css', '<%= pkg.name %>.min.css')
       }
     },
 
     // Csscomb task config.
     csscomb : {
       options : {
-        config : configPath('src.less', '.csscomb.json')
+        config : configPath('src.scss', '.csscomb.json')
       },
       all : {
         expand : true,
-        cwd    : configPath('dist.less'),
+        cwd    : configPath('out.css'),
         src    : [
           '*.css',
           '!*.min.css'
         ],
-        dest   : configPath('dist.less')
+        dest   : configPath('out.css')
       }
     },
 
     // Watch task config.
     watch : {
       js : {
-        files : '<%= jshint.main.src %>',
+        files : configPath('src.js', '**/*.js'),
         tasks : [
-          'jshint:main',
-          'concat'
+          'jshint:js',
+          'compile-js'
         ]
       },
-      less : {
-        files : configPath('src.less', '**/*.less'),
+      scss : {
+        files : configPath('src.scss', '**/*.scss'),
         tasks : [
-          'less'
+          'lesslint',
+          'compile-css'
         ]
       }
     }
   });
 
-  // Loadtasks plugin.
+  // Load tasks plugin.
   require('load-grunt-tasks')(grunt, {
-    scope: 'devDependencies'
+    scope : 'devDependencies'
   });
 
   // Load task timer plugin.
   require('time-grunt')(grunt);
 
-  // Test task.
+  // Main test task.
   grunt.registerTask('test', [
     'test-js',
-    'test-less'
+    'test-css'
   ]);
 
-  // LESS test task.
-  grunt.registerTask('test-less', [
-    'lesslint:less',
-    'dist-css',
-    'lesslint:css'
+  // SCSS/CSS test task.
+  grunt.registerTask('test-css', [
+    'compile-css',
+    'lesslint'
   ]);
 
-  // JS test task.
+  // Javascript test task.
   grunt.registerTask('test-js', [
     'jshint:js',
     'jshint:grunt',
@@ -299,45 +329,55 @@ module.exports = function (grunt) {
     'jscs:grunt'
   ]);
 
-  // JS distribution task.
-  grunt.registerTask('dist-js', [
+  // Javascript distribution task.
+  grunt.registerTask('compile-js', [
     'concat',
     'uglify',
-    'commonjs'
+    'commonjs',
+    'decomment:js',
+    'usebanner:js'
   ]);
 
-  // Less compilation task.
-  grunt.registerTask('less-compile', [
-    'less'
+  // SCSS compilation task.
+  grunt.registerTask('scss-compile', [
+    'sass'
   ]);
 
   // CSS distribution task.
-  grunt.registerTask('dist-css', [
-    'less-compile',
+  grunt.registerTask('compile-css', [
+    'scss-compile',
     'autoprefixer',
     'csscomb',
-    'cssmin'
+    'cssmin',
+    'decomment:css',
+    'usebanner:css'
   ]);
 
-  // Full distribution task.
-  grunt.registerTask('dist', [
-    'dist-css',
-    'dist-js',
-    'decomment',
-    'usebanner'
+  // Main distribution task.
+  grunt.registerTask('compile', [
+    'compile-css',
+    'compile-js'
   ]);
 
-  // Default task.
-  grunt.registerTask('default', [
-    'clean:dist',
-    'dist'
+  // Clean distribution task.
+  grunt.registerTask('clean-all', [
+    'clean:js',
+    'clean:css'
   ]);
 
   // Generate common JS loader.
   grunt.registerTask('commonjs', 'Generate CommonJS entrypoint module in dist dir.', function () {
     var cjs = require(configPath('config.commonjs-generator', undefined, './'));
-    cjs(grunt, grunt.config.get('concat.js.src'), configPath('dist.js', 'npm.js'));
+    cjs(grunt, grunt.config.get('concat.js.src'), configPath('out.js', 'npm.js'));
   });
+
+  // Default task.
+  grunt.registerTask('default', [
+    'clean-all',
+    'test-js',
+    'compile',
+    'lesslint'
+  ]);
 };
 
 /* EOF */

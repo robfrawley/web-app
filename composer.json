@@ -1,44 +1,60 @@
 {
-  "name": "src-run/web-application",
-  "license": "mit",
-  "type": "project",
-  "autoload": {
-    "psr-4": {
-      "": "src/"
+  "name"        : "src-run/web-app",
+  "license"     : "MIT",
+  "type"        : "project",
+  "homepage"    : "https://src.run/augustus-library",
+  "description" : "primary application for Source Consulting website",
+  "support" : {
+    "email"  : "rmf@src.run",
+    "issues" : "https://src.run/web-app/issues",
+    "source" : "https://src.run/web-app/git"
+  },
+  "authors"  : [
+    {
+      "name"     : "Rob Frawley 2nd",
+      "email"    : "rmf@src.run",
+      "homepage" : "https://src.run/rmf",
+      "role"     : "Project Lead"
+    }
+  ],
+  "autoload" : {
+    "psr-4" : {
+      "" : "src/"
     },
-    "classmap": [
+    "classmap" : [
       "app/AppKernel.php",
       "app/AppCache.php"
     ]
   },
-  "autoload-dev": {
-    "psr-4": {
-      "Tests\\": "tests/"
+  "autoload-dev" : {
+    "psr-4" : {
+      "Tests\\" : "tests/"
     }
   },
-  "require": {
-    "php": ">=7.0",
-    "symfony/symfony": "^3.1",
-    "doctrine/orm": "^2.5",
-    "doctrine/doctrine-bundle": "^1.6",
-    "doctrine/doctrine-cache-bundle": "^1.2",
-    "doctrine/doctrine-fixtures-bundle": "^2.3",
-    "symfony/swiftmailer-bundle": "^2.3",
-    "symfony/monolog-bundle": "^2.8",
-    "symfony/polyfill-apcu": "^1.0",
-    "sensio/distribution-bundle": "^5.0",
-    "sensio/framework-extra-bundle": "^3.0",
-    "incenteev/composer-parameter-handler": "^2.0",
-    "google/apiclient": "^1.0@beta",
-    "src-run/augustus-library": "^0.6"
+  "require" : {
+    "php"                                  : ">=7.0",
+    "symfony/symfony"                      : "^2.8 || ^3.0 || ^3.1",
+    "symfony/monolog-bundle"               : "^2.8 || ^3.0 || ^3.1",
+    "symfony/assetic-bundle"               : "^2.8 || ^3.0 || ^3.1",
+    "symfony/swiftmailer-bundle"           : "^2.3",
+    "symfony/polyfill-apcu"                : "^1.0",
+    "sensio/distribution-bundle"           : "^5.0",
+    "sensio/framework-extra-bundle"        : "^3.0",
+    "incenteev/composer-parameter-handler" : "^2.0",
+    "doctrine/orm"                         : "^2.5",
+    "doctrine/doctrine-bundle"             : "^1.6",
+    "doctrine/doctrine-cache-bundle"       : "^1.2",
+    "doctrine/doctrine-fixtures-bundle"    : "^2.3",
+    "src-run/augustus-library"             : "^0.6",
+    "google/apiclient"                     : "^1.0@beta"
   },
-  "require-dev": {
-    "sensio/generator-bundle": "^3.0",
-    "symfony/phpunit-bridge": "^3.0",
-    "src-run/vermicious-deploy-library": "^0.1"
+  "require-dev" : {
+    "sensio/generator-bundle"           : "^3.0",
+    "symfony/phpunit-bridge"            : "^3.0",
+    "src-run/vermicious-deploy-library" : "^0.1"
   },
-  "scripts": {
-    "post-install-cmd": [
+  "scripts" : {
+    "post-install-cmd" : [
       "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
@@ -46,7 +62,7 @@
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
     ],
-    "post-update-cmd": [
+    "post-update-cmd" : [
       "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
@@ -55,20 +71,20 @@
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
     ]
   },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
+  "minimum-stability" : "dev",
+  "prefer-stable"     : true,
   "config" : {
     "bin-dir" : "bin"
   },
   "extra": {
-    "symfony-app-dir": "app",
-    "symfony-bin-dir": "bin",
-    "symfony-var-dir": "var",
-    "symfony-web-dir": "web",
-    "symfony-tests-dir": "tests",
-    "symfony-assets-install": "relative",
-    "incenteev-parameters": {
-      "file": "app/config/parameters.yml"
+    "symfony-app-dir"        : "app",
+    "symfony-bin-dir"        : "bin",
+    "symfony-var-dir"        : "var",
+    "symfony-web-dir"        : "web",
+    "symfony-tests-dir"      : "tests",
+    "symfony-assets-install" : "relative",
+    "incenteev-parameters"   : {
+      "file" : "app/config/parameters.yml"
     }
   }
 }
