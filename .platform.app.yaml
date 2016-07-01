@@ -26,7 +26,6 @@ runtime:
         - igbinary
         - opcache
         - pdo_mysql
-        - ssh2
     disabled_extensions:
         - sqlite3
         - pdo_sqlite
