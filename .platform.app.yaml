@@ -9,6 +9,39 @@ type: php:7.0
 build:
   flavor: symfony
 
+runtime:
+    extensions:
+        - imagick
+        - redis
+        - xdebug
+        - apcu
+        - blackfire
+        - bz2
+        - curl
+        - gd
+        - intl
+        - json
+        - mcrypt
+        - memcached
+        - igbinary
+        - opcache
+        - pdo_mysql
+        - ssh2
+    disabled_extensions:
+        - sqlite3
+        - pdo_sqlite
+        - mysqli
+
+dependencies:
+  ruby:
+    sass: "3.4.7"
+  nodejs:
+    grunt: "~0.4.5"
+    grunt-cli: "~0.1.13"
+
+access:
+  ssh: contributor
+
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
@@ -37,6 +70,8 @@ mounts:
 # The hooks that will be performed when the package is deployed.
 hooks:
     build: |
+      npm install
+      node_modules/.bin/bower install
       rm web/app_dev.php
       bin/console --env=prod assets:install --no-debug
     deploy: |

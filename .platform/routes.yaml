@@ -1,4 +1,11 @@
 "http://{default}/":
     type: upstream
-    # the first part should be your project name
     upstream: "webapp:http"
+    cache:
+        enabled: false
+    ssi:
+        enabled: false
+
+"http://www.{default}/":
+    type: redirect
+    to: "http://{default}/"
