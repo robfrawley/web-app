@@ -1,0 +1,19 @@
+{
+  "options": {
+    "browsers": [
+      "Android >= 4",
+      "Chrome >= 28",
+      "Firefox >= 40",
+      "Explorer >= 11",
+      "iOS >= 7",
+      "Opera >= 30",
+      "Safari >= 9"
+    ]
+  },
+  "all": {
+    "options": {
+      "map": true
+    },
+    "src": "web/assets/out/stylesheets/<%= pkg.name %>.css"
+  }
+}

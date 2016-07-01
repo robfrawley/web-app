@@ -47,8 +47,8 @@
         "script" : "${paths.src.to.script}plugins.js"
       }
     },
-    "grunt" : {
-      "banner-contents"    : ".grunt/config-banner.txt",
+    "config" : {
+      "banner-text"        : ".grunt/config-banner.txt",
       "commonjs-generator" : ".grunt/commonjs-generator.js"
     }
   },

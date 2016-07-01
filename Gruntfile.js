@@ -11,112 +11,41 @@
 module.exports = function (grunt) {
   'use strict';
 
-  // Force use of Unix newlines.
   grunt.util.linefeed = '\n';
 
-  // Regex quote function.
-  RegExp.quote = function (string) {
-    return string.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&');
+  var Path = require('path');
+  var FS   = require('fs');
+  var Conf = require('./.grunt/build-config.js');
+  var CB   = new Conf(grunt, '.grunt/config.json');
+
+  var commonJsTask = function () {
+    var cjs = require(CB.getPath('grunt.commonjs-generator', {pre: './'}));
+    cjs(grunt, grunt.config.get('concat.js.src'), CB.getPath('src.to.script', {post: 'npm.js'}));
   };
 
-  // Variable declarations.
-  var path;
-  var fs;
-  var configJson;
-  var configValueMake;
-  var configMake;
-  var configPath;
-  var configTask;
-  var configList;
-
-  // Import requirements.
-  path = require('path');
-  fs = require('fs');
-
-  // Parse config json.
-  configJson = grunt.file.readJSON('./.grunt/config.json', {
-    encoding: 'utf8'
-  });
-
-  // Parse config value for sub-config keys.
-  configValueMake = function (c) {
-    var result = new RegExp('\\$\{([a-z\.]+)\}', 'i').exec(c);
-
-    if (!result || result.length < 2) {
-      return c;
-    }
-
-    return c.replace(new RegExp(RegExp.quote(result[0]), 'g'), configMake(undefined, result[1]));
-  };
-
-  // Get compiled config value.
-  configMake = function (section, index, post, pre) {
-    var c = configJson;
-
-    if (section) {
-      index = section + '.' + index;
-    }
-
-    index.split('.').forEach(function (key) {
-      c = c[key];
-    });
-
-    if (c instanceof Array) {
-      return c.map(function (v) {
-        return configValueMake(v);
-      });
-    }
-
-    if (pre)  { c = pre + c;  }
-    if (post) { c = c + post; }
-
-    return configValueMake(c);
-  };
-
-  // Get config path value.
-  configPath = function (index, post, pre) {
-    return configMake('paths', index, post, pre);
-  };
-
-  // Get config task value.
-  configTask = function (index, post, pre) {
-    return configMake('tasks', index, post, pre);
-  };
-
-  // Get config file listing.
-  configList = function (index) {
-    return configMake('files', index);
-  };
-
-  // Project configuration.
   grunt.initConfig({
-
-    // Gather package metadata.
     pkg : grunt.file.readJSON('package.json'),
 
-    // Get our banner from file.
     banner : function () {
-      return fs.readFileSync(configPath('config.banner-text')).toString();
+      return FS.readFileSync(CB.getPath('grunt.banner-contents', {pre: './'})).toString();
     }(),
 
-    // Clean distribution config.
     clean : {
-      js : [
-        configPath('out.js')
+      script : [
+        CB.getPath('src.to.script')
       ],
-      css : [
-        configPath('out.css')
+      style : [
+        CB.getPath('src.to.style')
       ]
     },
 
-    // Js lint config.
     jshint : {
       options : {
-        jshintrc : configPath('src.js', '.jshintrc')
+        jshintrc : CB.getPath('src.to.script', {post: '.jshintrc'})
       },
       grunt : {
         options : {
-          jshintrc : configPath('src.js', '.jshintrc')
+          jshintrc : CB.getPath('src.to.script', {post: '.jshintrc'})
         },
         src : [
           'Gruntfile.js',
@@ -124,77 +53,72 @@ module.exports = function (grunt) {
           'grunt/*.js'
         ]
       },
-      js : {
-        src : configPath('src.js', '*.js')
+      script : {
+        src : CB.getPath('src.to.script', {post: '*.js'})
       }
     },
 
-    // Js tests config.
     jscs : {
       options : {
-        config : configPath('src.js', '.jscsrc')
+        config : CB.getPath('src.to.script', {post: '.jscsrc'})
       },
       grunt : {
         src : '<%= jshint.grunt.src %>'
       },
-      js : {
-        src : '<%= jshint.js.src %>'
+      script : {
+        src : '<%= jshint.script.src %>'
       }
     },
 
-    // Dist comments removal.
     decomment : {
       options : {
         type : 'text'
       },
-      js : {
+      script : {
         src  : [
-          configPath('out.js', '*.js')
+          CB.getPath('src.to.script', {post: '*.js'})
         ],
         dest : './',
         cwd  : './'
       },
-      css : {
+      style : {
         src  : [
-          configPath('out.css', '*.css')
+          CB.getPath('src.to.style', {post: '*.css'})
         ],
         dest : './',
         cwd  : './'
       }
     },
 
-    // Dist file banner config.
     usebanner : {
       options : {
         position  : 'top',
         banner    : '<%= banner %>',
         linebreak : true
       },
-      js : {
+      script : {
         files : {
           src : [
-            configPath('out.js',  '*.js')
+            CB.getPath('src.to.script', {post: '*.js'})
           ]
         }
       },
-      css : {
+      style : {
         files : {
           src : [
-            configPath('out.css', '*.css')
+            CB.getPath('src.to.style', {post: '*.css'})
           ]
         }
       }
     },
 
-    // JS concatination config.
     concat : {
-      js : {
-        src  : configList('js'),
-        dest : configPath('out.js', '<%= pkg.name %>.js')
+      script : {
+        src  : CB.getFiles('jquery.in.script').concat(CB.getFiles('plug-bs.in.script').concat(CB.getFiles('plug-waypoints.in.script').concat(CB.getFiles('srw.in.script')))),
+        dest : CB.getPath('src.to.script', {post: '<%= pkg.name %>.js'})
       }
     },
 
-    // Css uglify task config.
     uglify : {
       options: {
         mangle           : true,
@@ -202,57 +126,53 @@ module.exports = function (grunt) {
         screwIE8         : true,
         quoteStyle       : 2
       },
-      js : {
-        src  : '<%= concat.js.dest %>',
-        dest : configPath('out.js', '<%= pkg.name %>.min.js')
+      script : {
+        src  : '<%= concat.script.dest %>',
+        dest : CB.getPath('src.to.script', {post: '<%= pkg.name %>.min.js'})
       }
     },
 
-    // SCSS compilation task config.
     sass: {
       options : {
         includePaths : [
-          configPath('src.scss'),
-          configPath('bs.scss')
+          CB.getPath('src.in.style'),
+          CB.getPath('plug-bs.in.style')
         ],
         precision : 9,
         sourceMap : true,
-        outFile   : configPath('out.css', '<%= pkg.name %>.css.map')
+        outFile   : CB.getPath('src.to.style', {post: '<%= pkg.name %>.css.map'})
       },
-      all : {
-        src  : configPath('src.scss', '<%= pkg.name %>.scss'),
-        dest : configPath('out.css', '<%= pkg.name %>.css')
+      style : {
+        src  : CB.getPath('src.in.style', {post: '<%= pkg.name %>.scss'}),
+        dest : CB.getPath('src.to.style', {post: '<%= pkg.name %>.css'})
       }
     },
 
-    // AutoPrefixer task config.
     autoprefixer : {
       options : {
-        browsers : configTask('autoprefixer.browserList')
+        browsers : CB.getTask('autoprefixer.browserList')
       },
-      all : {
+      style : {
         options : {
           map : true
         },
-        src : configPath('out.css', '<%= pkg.name %>.css')
+        src : CB.getPath('src.to.style', {post: '<%= pkg.name %>.css'})
       }
     },
 
-    // Css lint task config.
     lesslint : {
       options : {
         csslint : {
-          csslintrc         : configPath('src.scss', '.csslintrc'),
+          csslintrc         : CB.getPath('src.in.style', {post: '.csslintrc'}),
           failOnWarning     : false,
           'fallback-colors' : false
         }
       },
-      css : {
-        src : configPath('out.css', '<%= pkg.name %>.css')
+      style : {
+        src : CB.getPath('src.to.style', {post: '<%= pkg.name %>.css'})
       }
     },
 
-    // Cssmin task config.
     cssmin : {
       options : {
         compatibility       : false,
@@ -260,39 +180,37 @@ module.exports = function (grunt) {
         sourceMap           : true,
         advanced            : false
       },
-      all : {
-        src  : configPath('out.css', '<%= pkg.name %>.css'),
-        dest : configPath('out.css', '<%= pkg.name %>.min.css')
+      style : {
+        src  : CB.getPath('src.to.style', {post: '<%= pkg.name %>.css'}),
+        dest : CB.getPath('src.to.style', {post: '<%= pkg.name %>.min.css'})
       }
     },
 
-    // Csscomb task config.
     csscomb : {
       options : {
-        config : configPath('src.scss', '.csscomb.json')
+        config : CB.getPath('src.in.style', {post: '.csscomb.json'})
       },
-      all : {
+      style : {
         expand : true,
-        cwd    : configPath('out.css'),
+        cwd    : CB.getPath('src.to.style'),
         src    : [
           '*.css',
           '!*.min.css'
         ],
-        dest   : configPath('out.css')
+        dest   : CB.getPath('src.to.style')
       }
     },
 
-    // Watch task config.
     watch : {
-      js : {
-        files : configPath('src.js', '**/*.js'),
+      script : {
+        files : CB.getPath('src.to.script', {post: '**/*.js'}),
         tasks : [
           'jshint:js',
           'compile-js'
         ]
       },
-      scss : {
-        files : configPath('src.scss', '**/*.scss'),
+      style : {
+        files : CB.getPath('src.in.style', {post: '**/*.scss'}),
         tasks : [
           'lesslint',
           'compile-css'
@@ -301,83 +219,59 @@ module.exports = function (grunt) {
     }
   });
 
-  // Load tasks plugin.
-  require('load-grunt-tasks')(grunt, {
-    scope : 'devDependencies'
-  });
-
-  // Load task timer plugin.
+  require('load-grunt-tasks')(grunt, {scope : 'devDependencies'});
   require('time-grunt')(grunt);
 
-  // Main test task.
   grunt.registerTask('test', [
-    'test-js',
-    'test-css'
+    'test-style',
+    'test-script'
   ]);
 
-  // SCSS/CSS test task.
-  grunt.registerTask('test-css', [
-    'compile-css',
+  grunt.registerTask('test-style', [
+    'compile-style',
     'lesslint'
   ]);
 
-  // Javascript test task.
-  grunt.registerTask('test-js', [
-    'jshint:js',
+  grunt.registerTask('test-script', [
+    'jshint:script',
+    'jscs:script',
     'jshint:grunt',
-    'jscs:js',
     'jscs:grunt'
   ]);
 
-  // Javascript distribution task.
-  grunt.registerTask('compile-js', [
+  grunt.registerTask('compile-script', [
     'concat',
     'uglify',
     'commonjs',
-    'decomment:js',
-    'usebanner:js'
+    'decomment:script',
+    'usebanner:script'
   ]);
 
-  // SCSS compilation task.
-  grunt.registerTask('scss-compile', [
-    'sass'
-  ]);
-
-  // CSS distribution task.
-  grunt.registerTask('compile-css', [
-    'scss-compile',
+  grunt.registerTask('compile-style', [
+    'scss',
     'autoprefixer',
     'csscomb',
     'cssmin',
-    'decomment:css',
-    'usebanner:css'
+    'decomment:style',
+    'usebanner:style'
   ]);
 
-  // Main distribution task.
   grunt.registerTask('compile', [
-    'compile-css',
-    'compile-js'
+    'compile-style',
+    'compile-script'
   ]);
 
-  // Clean distribution task.
-  grunt.registerTask('clean-all', [
-    'clean:js',
-    'clean:css'
+  grunt.registerTask('clean', [
+    'clean:script',
+    'clean:style'
   ]);
 
-  // Generate common JS loader.
-  grunt.registerTask('commonjs', 'Generate CommonJS entrypoint module in dist dir.', function () {
-    var cjs = require(configPath('config.commonjs-generator', undefined, './'));
-    cjs(grunt, grunt.config.get('concat.js.src'), configPath('out.js', 'npm.js'));
-  });
-
-  // Default task.
   grunt.registerTask('default', [
-    'clean-all',
-    'test-js',
-    'compile',
-    'lesslint'
+    'clean',
+    'compile'
   ]);
+
+  grunt.registerTask('commonjs', 'Generate CommonJS entrypoint module in dist dir.', commonJsTask);
 };
 
 /* EOF */

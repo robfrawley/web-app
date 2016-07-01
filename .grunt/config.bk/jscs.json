@@ -1,0 +1,11 @@
+{
+  "options": {
+    "config": "web/assets/src/javascripts/.jscsrc"
+  },
+  "grunt": {
+    "src": "<%= jshint.grunt.src %>"
+  },
+  "js": {
+    "src": "<%= jshint.js.src %>"
+  }
+}

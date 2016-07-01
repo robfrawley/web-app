@@ -1,0 +1,12 @@
+{
+  "options": {
+    "type": "text"
+  },
+  "css": {
+    "src": [
+      "web/assets/out/stylesheets/*.css"
+    ],
+    "dest": "./",
+    "cwd": "./"
+  }
+}

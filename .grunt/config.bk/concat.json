@@ -1,0 +1,32 @@
+{
+  "jquery": {
+    "src": [
+      "web/components/jquery/dist/jquery.js"
+    ],
+    "dest": "web/assets/out/javascripts/jquery.js"
+  },
+  "plugins": {
+    "src": [
+      "web/components/bootstrap-sass/assets/javascripts/bootstrap/transition.js",
+      "web/components/bootstrap-sass/assets/javascripts/bootstrap/alert.js",
+      "web/components/bootstrap-sass/assets/javascripts/bootstrap/button.js",
+      "web/components/bootstrap-sass/assets/javascripts/bootstrap/carousel.js",
+      "web/components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js",
+      "web/components/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js",
+      "web/components/bootstrap-sass/assets/javascripts/bootstrap/modal.js",
+      "web/components/bootstrap-sass/assets/javascripts/bootstrap/tooltip.js",
+      "web/components/bootstrap-sass/assets/javascripts/bootstrap/popover.js",
+      "web/components/bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js",
+      "web/components/bootstrap-sass/assets/javascripts/bootstrap/tab.js",
+      "web/components/bootstrap-sass/assets/javascripts/bootstrap/affix.js",
+      "web/components/jquery-waypoints/lib/jquery.waypoints.js"
+    ],
+    "dest": "web/assets/out/javascripts/plugins.js"
+  },
+  "srw": {
+    "src": [
+      "web/assets/src/javascripts/srw.js"
+    ],
+    "dest": "web/assets/out/javascripts/<%= pkg.name %>.js"
+  }
+}

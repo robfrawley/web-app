@@ -1,0 +1,12 @@
+{
+  "options": {
+    "compatibility": false,
+    "keepSpecialComments": false,
+    "sourceMap": true,
+    "advanced": false
+  },
+  "all": {
+    "src": "web/assets/out/stylesheets/<%= pkg.name %>.css",
+    "dest": "web/assets/out/stylesheets/<%= pkg.name %>.min.css"
+  }
+}

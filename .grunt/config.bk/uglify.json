@@ -1,0 +1,15 @@
+{
+  "options": {
+    "mangle": false,
+    "preserveComments": false,
+    "screwIE8": true,
+    "quoteStyle": 2,
+    "compress": {
+      "warnings": true
+    }
+  },
+  "js": {
+    "src": [],
+    "dest": "web/assets/out/javascripts/<%= pkg.name %>.min.js"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "js": [
+    "web/assets/out/javascripts/"
+  ],
+  "css": [
+    "web/assets/out/stylesheets/"
+  ]
+}

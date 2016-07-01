@@ -1,0 +1,21 @@
+{
+  "options": {
+    "position": "top",
+    "banner": "<%= banner %>",
+    "linebreak": true
+  },
+  "js": {
+    "files": {
+      "src": [
+        "web/assets/out/javascripts/*.js"
+      ]
+    }
+  },
+  "css": {
+    "files": {
+      "src": [
+        "web/assets/out/stylesheets/*.css"
+      ]
+    }
+  }
+}
