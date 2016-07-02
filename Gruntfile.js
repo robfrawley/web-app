@@ -17,11 +17,6 @@ module.exports = function (grunt) {
   var Conf = require('./.grunt/build-config.js');
   var CB   = new Conf(grunt, '.grunt/config.json');
 
-  var commonJsTask = function () {
-    var cjs = require(CB.getPath('grunt.commonjs-generator', {pre: './'}));
-    cjs(grunt, grunt.config.get('concat.script.src'), CB.getPath('src.to.script', {post: 'npm.js'}));
-  };
-
   grunt.initConfig({
     pkg : grunt.file.readJSON('package.json'),
 
@@ -261,7 +256,10 @@ module.exports = function (grunt) {
     'compile'
   ]);
 
-  grunt.registerTask('commonjs', 'Generate CommonJS entrypoint module in dist dir.', commonJsTask);
+  grunt.registerTask('commonjs', 'Generate CommonJS entry-point module', function () {
+    var cjs = require(CB.getPath('grunt.commonjs-generator', {pre: './'}));
+    cjs(grunt, grunt.config.get('concat.script.src'), CB.getPath('src.to.script', {post: 'npm.js'}));
+  });
 };
 
 /* EOF */

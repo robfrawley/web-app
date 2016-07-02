@@ -1,6 +1,6 @@
 "http://{default}/":
     type: upstream
-    upstream: "webapp:http"
+    upstream: "php:http"
     cache:
         enabled: false
     ssi:
