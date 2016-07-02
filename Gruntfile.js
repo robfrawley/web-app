@@ -73,13 +73,6 @@ module.exports = function (grunt) {
       options : {
         type : 'text'
       },
-      script : {
-        src  : [
-          CB.getPath('src.to.script', {post: '*.js'})
-        ],
-        dest : './',
-        cwd  : './'
-      },
       style : {
         src  : [
           CB.getPath('src.to.style', {post: '*.css'})
@@ -204,15 +197,14 @@ module.exports = function (grunt) {
       script : {
         files : CB.getPath('src.to.script', {post: '**/*.js'}),
         tasks : [
-          'jshint:js',
-          'compile-js'
+          'jshint:script',
+          'compile-script'
         ]
       },
       style : {
         files : CB.getPath('src.in.style', {post: '**/*.scss'}),
         tasks : [
-          'lesslint',
-          'compile-css'
+          'test-style'
         ]
       }
     }
@@ -242,7 +234,6 @@ module.exports = function (grunt) {
     'concat',
     'uglify',
     'commonjs',
-    'decomment:script',
     'usebanner:script'
   ]);
 
