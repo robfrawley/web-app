@@ -117,9 +117,6 @@ class BuildConfig {
       this.doneAction();
     }
 
-    console.log(index);
-    console.log(value instanceof Array ? BuildConfig.prePostArray(value, opts) : BuildConfig.prePostValue(value, opts));
-
     return value instanceof Array ? BuildConfig.prePostArray(value, opts) : BuildConfig.prePostValue(value, opts);
   }
 

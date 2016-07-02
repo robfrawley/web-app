@@ -13,13 +13,14 @@ module.exports = function (grunt) {
 
   grunt.util.linefeed = '\n';
 
+  var Path = require('path');
   var FS   = require('fs');
   var Conf = require('./.grunt/build-config.js');
   var CB   = new Conf(grunt, '.grunt/config.json');
 
   var commonJsTask = function () {
     var cjs = require(CB.getPath('grunt.commonjs-generator', {pre: './'}));
-    cjs(grunt, grunt.config.get('concat.script.src'), CB.getPath('src.to.script', {post: 'npm.js'}));
+    cjs(grunt, grunt.config.get('concat.js.src'), CB.getPath('src.to.script', {post: 'npm.js'}));
   };
 
   grunt.initConfig({
@@ -247,7 +248,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('compile-style', [
-    'sass',
+    'scss',
     'autoprefixer',
     'csscomb',
     'cssmin',
@@ -260,13 +261,13 @@ module.exports = function (grunt) {
     'compile-script'
   ]);
 
-  grunt.registerTask('cleanup', [
+  grunt.registerTask('clean', [
     'clean:script',
     'clean:style'
   ]);
 
   grunt.registerTask('default', [
-    'cleanup',
+    'clean',
     'compile'
   ]);
 
