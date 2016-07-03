@@ -17,12 +17,17 @@ web_profiler:
 monolog:
     handlers:
         main:
-            type: stream
-            path: "%kernel.logs_dir%/%kernel.environment%.log"
+            type:  stream
+            path:  %kernel.logs_dir%/%kernel.environment%.log
             level: debug
-            channels: [!event]
+        firephp:
+            type:  firephp
+            level: info
+        chromephp:
+            type:  chromephp
+            level: info
 
-swiftmailer:
-    disable_delivery: true
+assetic:
+    use_controller: true
 
 ...

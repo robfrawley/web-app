@@ -10,12 +10,14 @@ parameters:
     locale: en
 
 framework:
+    translator:
+      fallback: "%locale%"
     secret: "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: ~
     form: ~
-    csrf_protection: ~
+    csrf_protection: false
     validation:
         enable_annotations: true
     #serializer:      { enable_annotations: true }
@@ -25,22 +27,22 @@ framework:
     default_locale: "%locale%"
     trusted_hosts: ~
     trusted_proxies: ~
-    session:
-        handler_id: session.handler.native_file
-        save_path: "%kernel.root_dir%/../var/sessions/%kernel.environment%"
+    session:  false
     fragments: ~
     http_method_override: true
     assets: ~
 
 assetic:
     debug: '%kernel.debug%'
-    use_controller: '%kernel.debug%'
+    use_controller: false
+    bundles: []
     filters:
         cssrewrite: ~
 
 twig:
     debug: "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'
 
 doctrine:
     dbal:
@@ -63,5 +65,49 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:
       type: memory
+
+fos_rest:
+    disable_csrf_role: ROLE_API
+    param_fetcher_listener: true
+    view:
+        mime_types:
+            json: ['application/json', 'application/json;version=1.0', 'application/json;version=1.1', 'application/json;version=1.2']
+        view_response_listener: 'force'
+        formats:
+            xml:  true
+            json: true
+        templating_formats:
+            html: true
+    format_listener:
+        rules:
+            - { path: ^/, priorities: [ html, json, xml ], fallback_format: ~, prefer_extension: true }
+    versioning:
+        enabled: true
+        resolvers:
+            media_type:
+                enabled: true
+    exception:
+        codes:
+            'Symfony\Component\Routing\Exception\ResourceNotFoundException': 404
+            'Doctrine\ORM\OptimisticLockException': HTTP_CONFLICT
+        messages:
+            'Symfony\Component\Routing\Exception\ResourceNotFoundException': true
+    allowed_methods_listener: true
+    access_denied_listener:
+        json: true
+    body_listener: true
+
+fos_http_cache:
+    cache_control:
+        rules:
+            # the controls section values are used in a call to Response::setCache();
+            -
+                match:
+                    path: ^/notes
+                    methods: [GET, HEAD]
+                headers:
+                    cache_control: { public: true, max_age: 15, s_maxage: 30 }
+                    last_modified: "-1 hour"
+                    vary: [Accept-Encoding, Accept-Language]
 
 ...

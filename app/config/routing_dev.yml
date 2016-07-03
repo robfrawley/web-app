@@ -1,5 +1,16 @@
 ---
 
+_welcome:
+    path:  /
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: get_notes
+        permanent: true # this for 301
+
+_demo_note:
+    resource: "@AppBundle/Controller/NoteController.php"
+    type:     rest
+
 _wdt:
     resource: "@WebProfilerBundle/Resources/config/routing/wdt.xml"
     prefix:   /_wdt
@@ -7,10 +18,6 @@ _wdt:
 _profiler:
     resource: "@WebProfilerBundle/Resources/config/routing/profiler.xml"
     prefix:   /_profiler
-
-_errors:
-    resource: "@TwigBundle/Resources/config/routing/errors.xml"
-    prefix:   /_error
 
 _main:
     resource: routing.yml
